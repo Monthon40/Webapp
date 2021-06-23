@@ -1,12 +1,12 @@
 package io.muzoo.ooc.webapp.basic;
 
+import io.muzoo.ooc.webapp.basic.servlets.ServletRouter;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
 
 import javax.servlet.ServletException;
 import java.io.File;
-import java.util.logging.FileHandler;
 
 public class Webapp {
 
@@ -20,18 +20,8 @@ public class Webapp {
         try {
             Context ctx = tomcat.addWebapp("",doceBase.getAbsolutePath());
 
-            HomeServlet homeServlet = new HomeServlet();
-            Tomcat.addServlet(ctx, HomeServlet.class.getSimpleName(), homeServlet);
-
-            ctx.addServletMapping("/index.jsp", HomeServlet.class.getSimpleName());
-
-            LoginServlet loginServlet = new LoginServlet();
-            Tomcat.addServlet(ctx, LoginServlet.class.getSimpleName(), loginServlet);
-            ctx.addServletMapping("/login", LoginServlet.class.getSimpleName());
-
-            LogoutServlet logoutServlet = new LogoutServlet();
-            Tomcat.addServlet(ctx, LogoutServlet.class.getSimpleName(), logoutServlet);
-            ctx.addServletMapping("/logout", LogoutServlet.class.getSimpleName());
+            ServletRouter servletRouter = new ServletRouter();
+            servletRouter.init(ctx);
 
             tomcat.start();
             tomcat.getServer().await();
@@ -44,3 +34,5 @@ public class Webapp {
 
 
 }
+
+//http://localhost:8082/login

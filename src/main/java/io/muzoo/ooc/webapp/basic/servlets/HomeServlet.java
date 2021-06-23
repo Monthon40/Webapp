@@ -1,23 +1,19 @@
-package io.muzoo.ooc.webapp.basic;
+package io.muzoo.ooc.webapp.basic.servlets;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Date;
 
-public class HomeServlet extends HttpServlet {
+public class HomeServlet extends AbstractRoutableHttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
 
-        Object usernameObject = session.getAttribute("username");
-        if(usernameObject != null && usernameObject instanceof String){
-            String username = (String) usernameObject;
+        if(securityService.isAuthorized(request)){
+            String username = securityService.getCurrentUsername(request);
             request.setAttribute("username",username);
 
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/home.jsp");
@@ -26,5 +22,10 @@ public class HomeServlet extends HttpServlet {
             response.sendRedirect("/login");
         }
 
+    }
+
+    @Override
+    public String getPattern() {
+        return "/index.jsp";
     }
 }
