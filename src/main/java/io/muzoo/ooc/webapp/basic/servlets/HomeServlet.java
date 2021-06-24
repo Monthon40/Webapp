@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Date;
 
 public class HomeServlet extends AbstractRoutableHttpServlet {
 
@@ -15,6 +16,9 @@ public class HomeServlet extends AbstractRoutableHttpServlet {
         if(securityService.isAuthorized(request)){
             String username = securityService.getCurrentUsername(request);
             request.setAttribute("username",username);
+
+            Date date = new Date();
+            request.setAttribute("date1", date);
 
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/home.jsp");
             requestDispatcher.include(request,response);

@@ -5,6 +5,8 @@
 <h2>
     Hello ${username}
 </h2>
-
+<h3>
+    It's currently ${date1}
+</h3>
 </body>
 </html>
