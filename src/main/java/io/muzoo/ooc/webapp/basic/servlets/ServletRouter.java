@@ -14,9 +14,10 @@ public class ServletRouter {
     private final List<Class<? extends AbstractRoutableHttpServlet>> servletClasses = new ArrayList<>();
 
     {
-        servletClasses.add(HomeServlet.class);
+//        servletClasses.add(HomeServlet.class);
         servletClasses.add(LoginServlet.class);
         servletClasses.add(LogoutServlet.class);
+        servletClasses.add(UserServlet.class);
     }
 
 

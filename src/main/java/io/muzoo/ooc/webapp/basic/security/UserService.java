@@ -5,11 +5,15 @@ import java.util.Map;
 
 public class UserService {
 
-    private Map<String, User> users = new HashMap<>();
+    public Map<String, User> users = new HashMap<>();
     {
         users.put("strickwar", new User("strickwar", "12345"));
         users.put("admin", new User("admin","12345"));
     }
+    public Map getUser(){
+        return users;
+    }
+
 
     public User findByUsername(String username) {
         return users.get(username);
