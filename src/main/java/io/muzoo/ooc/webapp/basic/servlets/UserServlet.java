@@ -1,6 +1,6 @@
 package io.muzoo.ooc.webapp.basic.servlets;
 
-import io.muzoo.ooc.webapp.basic.security.UserService;
+import io.muzoo.ooc.webapp.basic.service.UserService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 public class UserServlet extends AbstractRoutableHttpServlet {
@@ -22,12 +21,6 @@ public class UserServlet extends AbstractRoutableHttpServlet {
 
             Date date = new Date();
             request.setAttribute("date1", date);
-
-            UserService xxx = new UserService();
-
-            Map b = xxx.getUser();
-            request.setAttribute("user1", b);
-
 
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/userList.jsp");
             requestDispatcher.include(request,response);

@@ -1,6 +1,6 @@
 package io.muzoo.ooc.webapp.basic.servlets;
 
-import io.muzoo.ooc.webapp.basic.security.SecurityService;
+import io.muzoo.ooc.webapp.basic.service.SecurityService;
 
 import javax.servlet.http.HttpServlet;
 

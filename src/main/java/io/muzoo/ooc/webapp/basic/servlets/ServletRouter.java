@@ -1,8 +1,8 @@
 package io.muzoo.ooc.webapp.basic.servlets;
 
 
-import io.muzoo.ooc.webapp.basic.security.SecurityService;
-import io.muzoo.ooc.webapp.basic.security.UserService;
+import io.muzoo.ooc.webapp.basic.service.SecurityService;
+import io.muzoo.ooc.webapp.basic.service.UserService;
 import org.apache.catalina.Context;
 import org.apache.catalina.startup.Tomcat;
 

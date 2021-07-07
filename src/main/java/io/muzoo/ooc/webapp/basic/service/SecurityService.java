@@ -1,6 +1,7 @@
-package io.muzoo.ooc.webapp.basic.security;
+package io.muzoo.ooc.webapp.basic.service;
 
-import javax.servlet.http.HttpServlet;
+import io.muzoo.ooc.webapp.basic.model.User;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Objects;
