@@ -1,5 +1,7 @@
 package io.muzoo.ooc.webapp.basic;
 
+import io.muzoo.ooc.webapp.basic.service.SecurityService;
+import io.muzoo.ooc.webapp.basic.service.UserService;
 import io.muzoo.ooc.webapp.basic.servlets.ServletRouter;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
@@ -17,10 +19,19 @@ public class Webapp {
         File doceBase = new File("src/main/webapp/");
         doceBase.mkdirs();
 
+
+
+        SecurityService securityService = new SecurityService();
+        securityService.setUserService(UserService.getInstance());
+
+        ServletRouter servletRouter = new ServletRouter();
+        servletRouter.setSecurityService(securityService);
+
+
         try {
             Context ctx = tomcat.addWebapp("",doceBase.getAbsolutePath());
 
-            ServletRouter servletRouter = new ServletRouter();
+//            ServletRouter servletRouter = new ServletRouter();
             servletRouter.init(ctx);
 
             tomcat.start();

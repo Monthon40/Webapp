@@ -8,7 +8,4 @@ public abstract class AbstractRoutableHttpServlet extends HttpServlet implements
 
     protected SecurityService securityService;
 
-    public void setSecurityService(SecurityService securityService) {
-        this.securityService = securityService;
-    }
 }

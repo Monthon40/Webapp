@@ -1,6 +1,7 @@
 package io.muzoo.ooc.webapp.basic.service;
 
 import io.muzoo.ooc.webapp.basic.model.User;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,16 +15,27 @@ public class SecurityService {
         this.userService = userService;
     }
 
-    public String getCurrentUsername(HttpServletRequest request){
-        HttpSession session = request.getSession();
-        Object usernameObject = session.getAttribute("username");
-        return (String) usernameObject;
-    }
+//    public String getCurrentUsername(HttpServletRequest request){
+//        HttpSession session = request.getSession();
+//        Object usernameObject = session.getAttribute("username");
+//        return (String) usernameObject;
+//    }
 
     public boolean isAuthorized(HttpServletRequest request) {
-        String username = getCurrentUsername(request);
-        return userService.checkIfUserExists(username);
+        String username = (String) request.getSession().getAttribute("username");
+//        String username = getCurrentUsername(request);
+//        User byUsername = userService.findByUsername(username);
+        return (username != null && userService.findByUsername(username) != null);
+    }
 
+    public boolean authenticate(String username, String password, HttpServletRequest request){
+        User user = userService.findByUsername(username);
+        if(user != null && BCrypt.checkpw(password, user.getPassword())){
+            request.getSession().setAttribute("username",username);
+            return true;
+        } else{
+            return false;
+        }
     }
 
     public void logout(HttpServletRequest request){

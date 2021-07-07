@@ -11,6 +11,8 @@ public class DataBaseConnectionService {
 
     private final HikariDataSource ds;
 
+    private static DataBaseConnectionService service;
+
     /**
      * Database connection pool using hikari library
      * The secret and variables are loaded from disk
@@ -33,6 +35,13 @@ public class DataBaseConnectionService {
 
     public Connection getConnection() throws SQLException {
         return ds.getConnection();
+    }
+
+    public static DataBaseConnectionService getInstance() {
+        if(service == null) {
+            service = new DataBaseConnectionService();
+        }
+        return service;
     }
 
 }

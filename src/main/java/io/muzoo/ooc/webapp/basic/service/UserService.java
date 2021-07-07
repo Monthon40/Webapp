@@ -15,8 +15,22 @@ public class UserService {
     private static final String SELECT_USER_SQL = "SELECT * FROM tbl_user WHERE username = ?;";
     private static final String SELECT_ALL_USERS_SQL = "SELECT * FROM tbl_user;";
 
+    private static UserService service;
 
     private DataBaseConnectionService dataBaseConnectionService;
+
+
+    private UserService(){
+
+    }
+
+    public static UserService getInstance() {
+        if(service == null) {
+            service = new UserService();
+            service.setDataBaseConnectionService(DataBaseConnectionService.getInstance());
+        }
+        return service;
+    }
 
     public void setDataBaseConnectionService(DataBaseConnectionService dataBaseConnectionService) {
         this.dataBaseConnectionService = dataBaseConnectionService;
@@ -117,24 +131,31 @@ public class UserService {
 
 
     public static void main(String[] args) {
-        UserService userService = new UserService();
-        userService.setDataBaseConnectionService(new DataBaseConnectionService());
-        List<User> users = userService.findAll();
-        for(User user : users){
-            System.out.println(user.getUsername());
-        }
+//        UserService userService = UserService.getInstance();
+//        try {
+//            userService.createUser("admin","123456","Admin");
+//        } catch (UserServiceException e) {
+//            e.printStackTrace();
+//        }
+        UserService userService1 = new UserService();
+        userService1.setDataBaseConnectionService(new DataBaseConnectionService());
+        User users = userService1.findByUsername("strickwar");
+        System.out.println(users);
+//        for(User user : users){
+//            System.out.println(user.getUsername());
+//        }
     }
 
 
-    public Map<String, User> users = new HashMap<>();
-    {
+//    public Map<String, User> users = new HashMap<>();
+//    {
 //        users.put("strickwar", new User("strickwar", "12345"));
 //        users.put("admin", new User("admin","12345"));
-    }
+//    }
 
-
-    public boolean checkIfUserExists(String username) {
-        return users.containsKey(username);
-    }
+//
+//    public boolean checkIfUserExists(String username) {
+//        return SELECT_ALL_USERS_SQL.equals(username);
+//    }
 
 }

@@ -6,33 +6,40 @@ import io.muzoo.ooc.webapp.basic.service.UserService;
 import org.apache.catalina.Context;
 import org.apache.catalina.startup.Tomcat;
 
+import javax.servlet.http.HttpServlet;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ServletRouter {
 
-    private final List<Class<? extends AbstractRoutableHttpServlet>> servletClasses = new ArrayList<>();
+    private static final List<Class<? extends Routable>> routables = new ArrayList<>();
 
-    {
+     static {
 //        servletClasses.add(HomeServlet.class);
-        servletClasses.add(LoginServlet.class);
-        servletClasses.add(LogoutServlet.class);
-        servletClasses.add(UserServlet.class);
+        routables.add(LoginServlet.class);
+        routables.add(LogoutServlet.class);
+        routables.add(UserServlet.class);
     }
 
+    private SecurityService securityService;
+
+    public void setSecurityService(SecurityService securityService) {
+        this.securityService = securityService;
+    }
 
     public void init(Context ctx){
 
-        UserService userService = new UserService();
-        SecurityService securityService = new SecurityService();
-        securityService.setUserService(userService);
+//        UserService userService = new UserService();
+//        SecurityService securityService = new SecurityService();
+//        securityService.setUserService(userService);
 
-        for (Class<?extends  AbstractRoutableHttpServlet> servletClass: servletClasses) {
+        for (Class<?extends  Routable> routableClass: routables) {
             try {
-                AbstractRoutableHttpServlet httpServlet = servletClass.newInstance();
-                httpServlet.setSecurityService(securityService);
-                Tomcat.addServlet(ctx, servletClass.getSimpleName(), httpServlet);
-                ctx.addServletMapping(httpServlet.getPattern(), servletClass.getSimpleName());
+                Routable routable = routableClass.newInstance();
+                routable.setSecurityService(securityService);
+                String name = routable.getClass().getSimpleName();
+                Tomcat.addServlet(ctx, name, (HttpServlet) routable);
+                ctx.addServletMapping(routable.getPattern(), name);
             } catch (InstantiationException e) {
                 e.printStackTrace();
             } catch (IllegalAccessException e) {

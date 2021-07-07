@@ -6,8 +6,7 @@
     ${error}
 </p>
 <p>
-These are the list of User
-    ${user1}
+${users}
 </p>
 </body>
 </html>

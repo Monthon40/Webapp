@@ -1,29 +1,42 @@
 package io.muzoo.ooc.webapp.basic.servlets;
 
+import io.muzoo.ooc.webapp.basic.service.SecurityService;
 import io.muzoo.ooc.webapp.basic.service.UserService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
 
-public class UserServlet extends AbstractRoutableHttpServlet {
+public class UserServlet extends HttpServlet implements Routable {
+
+
+    private SecurityService securityService;
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         if(securityService.isAuthorized(request)){
-            String username = securityService.getCurrentUsername(request);
-            request.setAttribute("username",username);
+            boolean authorized = securityService.isAuthorized(request);
+            if(authorized){
+                String username = (String) request.getSession().getAttribute("username");
+                request.setAttribute("username",username);
 
-            Date date = new Date();
-            request.setAttribute("date1", date);
+                Date date = new Date();
+                request.setAttribute("date1", date);
 
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/userList.jsp");
-            requestDispatcher.include(request,response);
+                UserService userService = UserService.getInstance();
+                request.setAttribute("users", userService.findAll());
+
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/userList.jsp");
+                requestDispatcher.include(request,response);
+            }
+
         } else{
             response.sendRedirect("/login");
         }
@@ -33,6 +46,11 @@ public class UserServlet extends AbstractRoutableHttpServlet {
     @Override
     public String getPattern() {
         return "/index.jsp";
+    }
+
+    @Override
+    public void setSecurityService(SecurityService securityService) {
+        this.securityService = securityService;
     }
 }
 
