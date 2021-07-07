@@ -20,12 +20,12 @@ public class UserService {
     private DataBaseConnectionService dataBaseConnectionService;
 
 
-    private UserService(){
+    private UserService() {
 
     }
 
     public static UserService getInstance() {
-        if(service == null) {
+        if (service == null) {
             service = new UserService();
             service.setDataBaseConnectionService(DataBaseConnectionService.getInstance());
         }
@@ -38,9 +38,11 @@ public class UserService {
 
     //create new user
     public void createUser(String username, String password, String displayName) throws UserServiceException {
-        try {
-            Connection connection = dataBaseConnectionService.getConnection();
-            PreparedStatement ps = connection.prepareStatement(INSERT_USER_SQL);
+        try (
+                Connection connection = dataBaseConnectionService.getConnection();
+                PreparedStatement ps = connection.prepareStatement(INSERT_USER_SQL);)
+        {
+
             ps.setString(1, username);
             ps.setString(2, BCrypt.hashpw(password, BCrypt.gensalt()));
             ps.setString(3, displayName);
@@ -55,9 +57,10 @@ public class UserService {
     }
 
     public User findByUsername(String username) {
-        try {
-            Connection connection = dataBaseConnectionService.getConnection();
-            PreparedStatement ps = connection.prepareStatement(SELECT_USER_SQL);
+        try (
+                Connection connection = dataBaseConnectionService.getConnection();
+                PreparedStatement ps = connection.prepareStatement(SELECT_USER_SQL);)
+        {
             ps.setString(1, username);
 
             boolean execute = ps.execute();
@@ -84,9 +87,11 @@ public class UserService {
      */
     public List<User> findAll() {
         List<User> users = new ArrayList<>();
-        try {
-            Connection connection = dataBaseConnectionService.getConnection();
-            PreparedStatement ps = connection.prepareStatement(SELECT_ALL_USERS_SQL);
+        try (
+                Connection connection = dataBaseConnectionService.getConnection();
+                PreparedStatement ps = connection.prepareStatement(SELECT_ALL_USERS_SQL);)
+        {
+
             ResultSet resultSet = ps.executeQuery();
 
             while (resultSet.next()) {
@@ -104,7 +109,7 @@ public class UserService {
     }
 
     //delete user
-    public void deleteUserByUsername(){
+    public void deleteUserByUsername() {
         throw new UnsupportedOperationException("not yet implemented");
 
     }
@@ -113,19 +118,21 @@ public class UserService {
 
     /**
      * Users can only change their display name when updating profile.
+     *
      * @param id
      * @param displayName
      */
-    public void updateUserById(long id, String displayName){
+    public void updateUserById(long id, String displayName) {
         throw new UnsupportedOperationException("not yet implemented");
     }
 
     /**
      * Change password method is separated from update user method because user normally
      * never change password and update profile at the same time.
+     *
      * @param newPassword
      */
-    public void changePassword(String newPassword){
+    public void changePassword(String newPassword) {
         throw new UnsupportedOperationException("not yet implemented");
     }
 
@@ -146,16 +153,5 @@ public class UserService {
 //        }
     }
 
-
-//    public Map<String, User> users = new HashMap<>();
-//    {
-//        users.put("strickwar", new User("strickwar", "12345"));
-//        users.put("admin", new User("admin","12345"));
-//    }
-
-//
-//    public boolean checkIfUserExists(String username) {
-//        return SELECT_ALL_USERS_SQL.equals(username);
-//    }
 
 }
