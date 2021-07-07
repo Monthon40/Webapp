@@ -4,13 +4,16 @@ import io.muzoo.ooc.webapp.basic.model.User;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class UserService {
 
     private static final String INSERT_USER_SQL = "INSERT INTO tbl_user (username, password, display_name) VALUES (?,?,?);";
     private static final String SELECT_USER_SQL = "SELECT * FROM tbl_user WHERE username = ?;";
+    private static final String SELECT_ALL_USERS_SQL = "SELECT * FROM tbl_user;";
 
 
     private DataBaseConnectionService dataBaseConnectionService;
@@ -30,7 +33,7 @@ public class UserService {
             ps.executeUpdate();
             // need to be manually committed to change
             connection.commit();
-        } catch (SQLIntegrityConstraintViolationException e ){
+        } catch (SQLIntegrityConstraintViolationException e) {
             throw new UsernameNotUniqueException(String.format("Username %s has already been taken.", username));
         } catch (SQLException throwables) {
             throw new UserServiceException(throwables.getMessage());
@@ -55,28 +58,57 @@ public class UserService {
             );
 
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
             return null;
         }
     }
 
-    public static void main(String[] args) {
-        UserService userService = new UserService();
-        userService.setDataBaseConnectionService(new DataBaseConnectionService());
-        User user = userService.findByUsername("strickwar");
-        System.out.println(user.getUsername());
+
+    /**
+     * list all users in database
+     *
+     * @return list of users, never return null
+     */
+    public List<User> findAll() {
+        List<User> users = new ArrayList<>();
+        try {
+            Connection connection = dataBaseConnectionService.getConnection();
+            PreparedStatement ps = connection.prepareStatement(SELECT_ALL_USERS_SQL);
+            ResultSet resultSet = ps.executeQuery();
+
+            while (resultSet.next()) {
+                users.add(
+                        new User(
+                                resultSet.getLong("id"),
+                                resultSet.getString("username"),
+                                resultSet.getString("password"),  //this is hashed password
+                                resultSet.getString("display_name")));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return users;
     }
 
 
+    public static void main(String[] args) {
+        UserService userService = new UserService();
+        userService.setDataBaseConnectionService(new DataBaseConnectionService());
+        List<User> users = userService.findAll();
+        for(User user : users){
+            System.out.println(user.getUsername());
+        }
+    }
+
 
     public Map<String, User> users = new HashMap<>();
+
     {
 //        users.put("strickwar", new User("strickwar", "12345"));
 //        users.put("admin", new User("admin","12345"));
     }
 
 
-    public boolean checkIfUserExists(String username){
+    public boolean checkIfUserExists(String username) {
         return users.containsKey(username);
     }
 
