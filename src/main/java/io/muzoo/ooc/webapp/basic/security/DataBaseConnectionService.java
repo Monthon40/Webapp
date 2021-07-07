@@ -12,6 +12,11 @@ public class DataBaseConnectionService {
 
     private final HikariDataSource ds;
 
+    /**
+     * Database connection pool using hikari library
+     * The secret and variables are loaded from disk
+     */
+
     public DataBaseConnectionService() {
         ds = new HikariDataSource();
         ds.setMaximumPoolSize(20);
@@ -31,25 +36,4 @@ public class DataBaseConnectionService {
         return ds.getConnection();
     }
 
-//    public static void main(String[] args) {
-//
-//
-//        try {
-//            Connection connection = ds.getConnection();
-//            String sql = "INSERT INTO tbl_user (username, password, display_name) VALUES (?,?,?);";
-//            PreparedStatement ps = connection.prepareStatement(sql);
-//            // setting username column 1
-//            ps.setString(1,"my_username");
-//            // setting password column 1
-//            ps.setString(2,"my_password");
-//            // setting display name column 1
-//            ps.setString(3,"my_display_name");
-//
-//            ps.executeUpdate();
-//            // need to be manually committed to change
-//            connection.commit();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
 }
