@@ -89,6 +89,32 @@ public class UserService {
         return users;
     }
 
+    //delete user
+    public void deleteUserByUsername(){
+        throw new UnsupportedOperationException("not yet implemented");
+
+    }
+
+    //update user by user id
+
+    /**
+     * Users can only change their display name when updating profile.
+     * @param id
+     * @param displayName
+     */
+    public void updateUserById(long id, String displayName){
+        throw new UnsupportedOperationException("not yet implemented");
+    }
+
+    /**
+     * Change password method is separated from update user method because user normally
+     * never change password and update profile at the same time.
+     * @param newPassword
+     */
+    public void changePassword(String newPassword){
+        throw new UnsupportedOperationException("not yet implemented");
+    }
+
 
     public static void main(String[] args) {
         UserService userService = new UserService();
@@ -101,7 +127,6 @@ public class UserService {
 
 
     public Map<String, User> users = new HashMap<>();
-
     {
 //        users.put("strickwar", new User("strickwar", "12345"));
 //        users.put("admin", new User("admin","12345"));
