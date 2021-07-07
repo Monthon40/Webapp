@@ -5,9 +5,7 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class UserService {
 
@@ -40,8 +38,7 @@ public class UserService {
     public void createUser(String username, String password, String displayName) throws UserServiceException {
         try (
                 Connection connection = dataBaseConnectionService.getConnection();
-                PreparedStatement ps = connection.prepareStatement(INSERT_USER_SQL);)
-        {
+                PreparedStatement ps = connection.prepareStatement(INSERT_USER_SQL);) {
 
             ps.setString(1, username);
             ps.setString(2, BCrypt.hashpw(password, BCrypt.gensalt()));
@@ -59,8 +56,7 @@ public class UserService {
     public User findByUsername(String username) {
         try (
                 Connection connection = dataBaseConnectionService.getConnection();
-                PreparedStatement ps = connection.prepareStatement(SELECT_USER_SQL);)
-        {
+                PreparedStatement ps = connection.prepareStatement(SELECT_USER_SQL);) {
             ps.setString(1, username);
 
             boolean execute = ps.execute();
@@ -89,8 +85,7 @@ public class UserService {
         List<User> users = new ArrayList<>();
         try (
                 Connection connection = dataBaseConnectionService.getConnection();
-                PreparedStatement ps = connection.prepareStatement(SELECT_ALL_USERS_SQL);)
-        {
+                PreparedStatement ps = connection.prepareStatement(SELECT_ALL_USERS_SQL);) {
 
             ResultSet resultSet = ps.executeQuery();
 
@@ -152,6 +147,4 @@ public class UserService {
 //            System.out.println(user.getUsername());
 //        }
     }
-
-
 }

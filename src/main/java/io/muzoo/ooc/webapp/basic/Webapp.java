@@ -6,8 +6,6 @@ import io.muzoo.ooc.webapp.basic.servlets.ServletRouter;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
-
-import javax.servlet.ServletException;
 import java.io.File;
 
 public class Webapp {

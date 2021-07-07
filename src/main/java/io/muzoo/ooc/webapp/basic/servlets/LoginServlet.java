@@ -23,16 +23,7 @@ public class LoginServlet extends HttpServlet implements Routable{
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        String error = "";
-//        if(securityService.login(request)){
-//            response.sendRedirect("/");
-//        } else{
-//            error = "User name or password invalid";
-//            request.setAttribute("error", error);
-//            RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/login.jsp");
-//            requestDispatcher.include(request,response);
-//
-//        }
+
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         if(!StringUtils.isBlank(username) && ! StringUtils.isBlank(password)){
