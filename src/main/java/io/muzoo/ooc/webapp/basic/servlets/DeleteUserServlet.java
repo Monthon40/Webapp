@@ -3,6 +3,7 @@ package io.muzoo.ooc.webapp.basic.servlets;
 import io.muzoo.ooc.webapp.basic.model.User;
 import io.muzoo.ooc.webapp.basic.service.SecurityService;
 import io.muzoo.ooc.webapp.basic.service.UserService;
+import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -30,13 +31,17 @@ public class DeleteUserServlet extends HttpServlet implements Routable {
                 try{
                     User currentUser = userService.findByUsername(username);
                     User deletingUser = userService.findByUsername(request.getParameter("username"));
-
-                    if(userService.deleteUserByUsername(deletingUser.getUsername())){
-                        request.getSession().setAttribute("hasError",false);
-                        request.getSession().setAttribute("message", String.format("User %s is successfully deleted.", deletingUser.getUsername()));
-                    } else{
+                    if(StringUtils.equals(currentUser.getUsername(), deletingUser.getUsername())){
                         request.getSession().setAttribute("hasError",true);
-                        request.getSession().setAttribute("message", String.format("Unable to delete user %s.", deletingUser.getUsername()));
+                        request.getSession().setAttribute("message", String.format("You cannot delete your own account.", deletingUser.getUsername()));
+                    } else{
+                        if(userService.deleteUserByUsername(deletingUser.getUsername())){
+                            request.getSession().setAttribute("hasError",false);
+                            request.getSession().setAttribute("message", String.format("User %s is successfully deleted.", deletingUser.getUsername()));
+                        } else{
+                            request.getSession().setAttribute("hasError",true);
+                            request.getSession().setAttribute("message", String.format("Unable to delete user %s.", deletingUser.getUsername()));
+                        }
                     }
                 } catch (Exception e){
                     request.getSession().setAttribute("hasError",true);
