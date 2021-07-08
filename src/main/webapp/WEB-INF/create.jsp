@@ -12,8 +12,7 @@
 </head>
 <style>
     body {
-
-        /*background-image: url('https://images.hdqwalls.com/wallpapers/toyota-supra-modified-4k-3r.jpg');*/
+        background-image: url('https://images.hdqwalls.com/wallpapers/toyota-supra-nfs-4k-nm.jpg');
         background-repeat: no-repeat;
         background-size: cover;
         background-attachment: fixed;
@@ -32,78 +31,64 @@
     <c:if test="${not empty message}">
         <c:choose>
             <c:when test="${hasError}">
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-danger mt-1" role="alert">
                     <a><i class="fa fa-times-circle" style="color: red"></i> ${message} </a>
                 </div>
             </c:when>
             <c:otherwise>
-                <div class="alert alert-success" role="alert">
+                <div class="alert alert-success mt-1" role="alert" md-6>
                     <a><i class="fa fa-check-circle-o" style="color: green"></i> ${message} </a>
                 </div>
             </c:otherwise>
         </c:choose>
     </c:if>
-    ${user.username}
-<%--        <thead>--%>
-<%--        <tr class="table-secondary">--%>
-<%--            <th class="py-3">Id</th>--%>
-<%--            <th class="py-3">Username</th>--%>
-<%--            <th class="py-3">Display Name</th>--%>
-<%--            <th class="py-3">Actions</th>--%>
-<%--        </tr>--%>
-<%--        </thead>--%>
-        <tbody>
-        <c:forEach var="user" items="${users}">
-            <tr>
-                <td class="py-3">${user.id}</td>
-                <td class="py-3">${user.username}</td>
-                <td class="py-3">${user.display_name}</td>
-                <td class="align-middle">
-                    <button class="btn btn-info btn-sm" type="button"><i class="fa fa-cog fa-spin"></i></button>
-                    <c:if test="${currentUser.username != user.username}">
-                        <!-- User Confirmation before deleting -->
-                        <!-- Button trigger modal -->
-                        <button
-                                class="btn btn-danger btn-sm"
-                                type="button" href="/user/delete?username=${user.username}"
-                                data-bs-toggle="modal"
-                                data-bs-target="#delete-modal-${user.id}"
-                        >
-                            <i class="fa fa-trash-o"></i>
-                        </button>
 
-                        <!-- Modal -->
-                        <div class="modal fade" id="delete-modal-${user.id}" tabindex="-1"
-                             aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Confirm deleting user</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body my-4">
-                                        Do you want to delete user <b>${user.display_name} (${user.username})</b>?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
-                                        </button>
-                                        <a class="btn btn-danger" href="/user/delete?username=${user.username}">
-                                            <i class="fa fa-trash-o"></i>Delete
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </c:if>
-                </td>
+    <div class="row justify-content-md-center ">
+        <div class="col col-sm-12 col-md-6 col-lg-4 mt-5 ">
+                <h3 class="text-center mb-4" style="color:darkslategray">Create New User</h3>
+                </head>
 
-            </tr>
-        </c:forEach>
+                <p>
+                    ${error}
+                </p>
+                <form action="/user/create" method="post" autocomplete="off" >
+                    <div class="input-group mb-4 input-group-md" >
+                    <span class="input-group-text "  id="username" style="width: 40px">
+                        <i class="fa fa-user"></i>
+                    </span>
+                        <input type="text" class="form-control " name="username" placeholder="Username" aria-label="Username"
+                               aria-describedby="username" autocomplete="off" value="${username}">
+                    </div>
+                    <div class="input-group mb-4 input-group-md">
+                    <span class="input-group-text " id="display_name" style="width: 40px">
+                        <i class="fa fa-user-circle"></i>
+                    </span>
+                        <input type="text" class="form-control " name="display_name" placeholder="Display Name" aria-label="display_name"
+                               aria-describedby="display_name" autocomplete="off" value="${display_name}">
+                    </div>
 
-        </tbody>
+                    <div class="input-group mb-4 input-group-md">
+                    <span class="input-group-text " id="password" style="width: 40px">
+                        <i class="fa fa-key"></i>
+                    </span>
+                        <input type="password" class="form-control " name="password" placeholder="Password"
+                               aria-label="Password" aria-describedby="password" autocomplete="off" value="${password}"}>
+                    </div>
+                    <div class="input-group mb-4 input-group-md">
+                    <span class="input-group-text " id="cpassword" style="width: 40px">
+                        <i class="fa fa-folder-open"></i>
+                    </span>
+                        <input type="password" class="form-control " name="cpassword" placeholder=" Confirm Password"
+                               aria-label="Password" aria-describedby="cpassword" autocomplete="off" value="${cpassword}">
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-success" type="submit"><i class="fa fa-plus-square"></i> &nbsp; Create New User</button>
+                    </div>
+                </form>
 
-    </table>
+        </div>
+    </div>
+
 </div>
 
 </body>

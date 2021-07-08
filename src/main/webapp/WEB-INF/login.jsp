@@ -28,7 +28,7 @@
             <p>
                 ${error}
             </p>
-            <form action="/login" method="post">
+            <form action="/login" method="post" >
                 <div class="input-group mb-4 input-group-md">
                     <span class="input-group-text " id="username" style="width: 40px">
                         <i class="fa fa-user"></i>
@@ -36,7 +36,7 @@
                     <input type="text" class="form-control " name="username" placeholder="Username" aria-label="Username" aria-describedby="username">
                 </div>
 
-                <div class="input-group mb-4 input-group-md">
+                <div class="input-group mb-4 input-group-md" >
                     <span class="input-group-text " id="password" style="width: 40px">
                         <i class="fa fa-key"></i>
                     </span>

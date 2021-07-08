@@ -33,7 +33,7 @@ public class DeleteUserServlet extends HttpServlet implements Routable {
                     User deletingUser = userService.findByUsername(request.getParameter("username"));
                     if(StringUtils.equals(currentUser.getUsername(), deletingUser.getUsername())){
                         request.getSession().setAttribute("hasError",true);
-                        request.getSession().setAttribute("message", String.format("You cannot delete your own account.", deletingUser.getUsername()));
+                        request.getSession().setAttribute("message", String.format("You cannot delete your own account %s.", deletingUser.getUsername()));
                     } else{
                         if(userService.deleteUserByUsername(deletingUser.getUsername())){
                             request.getSession().setAttribute("hasError",false);

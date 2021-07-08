@@ -53,10 +53,10 @@
         </div>
     </div>
 
-    <div class="row mb-4">
+    <div class="row mb-2">
         <div class="col-12">
             <a class="btn btn-success px-4 " type="button" href="/user/create">
-                <i class="fa fa-user"></i> &nbsp; New User</a>
+                <i class="fa fa-user-plus"></i> &nbsp; New User</a>
         </div>
     </div>
 

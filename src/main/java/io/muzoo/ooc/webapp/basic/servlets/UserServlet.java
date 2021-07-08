@@ -38,7 +38,7 @@ public class UserServlet extends HttpServlet implements Routable {
                 RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/userList.jsp");
                 rd.include(request,response);
 
-                //doesn't look like session attributes were removed
+
                 request.getSession().removeAttribute("hasError");
                 request.getSession().removeAttribute("message");
             }
