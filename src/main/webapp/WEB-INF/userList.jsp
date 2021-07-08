@@ -11,7 +11,7 @@
             crossorigin="anonymous"></script>
 </head>
 <style>
-    body{
+    body {
 
         background-image: url('https://images.hdqwalls.com/wallpapers/toyota-supra-modified-4k-3r.jpg');
         background-repeat: no-repeat;
@@ -25,7 +25,7 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="#">SSC - Login Webapp</a>
             <a class="btn btn-warning btn-sm pull-right" type="button" href="/logout">
-                <i class="fa fa-sign-out" ></i> &nbsp; Logout</a>
+                <i class="fa fa-sign-out"></i> &nbsp; Logout</a>
         </div>
     </nav>
     <h3 class="my-3" style="color:yellowgreen"> Welcome, ${username}</h3>
@@ -33,20 +33,20 @@
         <c:choose>
             <c:when test="${hasError}">
                 <div class="alert alert-danger" role="alert">
-                       <a>${message} <i class="fa fa-times-circle" style="color: red"></i></a>
+                    <a><i class="fa fa-times-circle" style="color: red"></i> ${message} </a>
                 </div>
             </c:when>
             <c:otherwise>
                 <div class="alert alert-success" role="alert">
-                    <a >${message} <i class="fa fa-check-circle-o" style="color: green"></i></a>
+                    <a><i class="fa fa-check-circle-o" style="color: green"></i> ${message} </a>
                 </div>
             </c:otherwise>
         </c:choose>
     </c:if>
-    <p class ="my-2" style="color:lightseagreen"><i class="fa fa-calendar"></i> Currently: ${date1}</p>
+    <p class="my-2" style="color:lightseagreen"><i class="fa fa-calendar"></i> Currently: ${date1}</p>
     <table class="table table-primary table-striped table-bordered table-hover ">
         <thead>
-        <tr class="table-secondary" >
+        <tr class="table-secondary">
             <th class="py-3">Id</th>
             <th class="py-3">Username</th>
             <th class="py-3">Display Name</th>
@@ -61,9 +61,41 @@
                 <td class="py-3">${user.display_name}</td>
                 <td class="align-middle">
                     <button class="btn btn-info btn-sm" type="button"><i class="fa fa-cog fa-spin"></i></button>
-
                     <c:if test="${currentUser.username != user.username}">
-                        <a class="btn btn-danger btn-sm" type="button" href="/user/delete?username=${user.username}"><i class="fa fa-trash-o"></i></a>
+                        <!-- User Confirmation before deleting -->
+                        <!-- Button trigger modal -->
+                        <button
+                                class="btn btn-danger btn-sm"
+                                type="button" href="/user/delete?username=${user.username}"
+                                data-bs-toggle="modal"
+                                data-bs-target="#delete-modal-${user.id}"
+                        >
+                            <i class="fa fa-trash-o"></i>
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="delete-modal-${user.id}" tabindex="-1"
+                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Confirm deleting user</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body my-4">
+                                        Do you want to delete user <b>${user.display_name} (${user.username})</b>?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                        </button>
+                                        <a class="btn btn-danger" href="/user/delete?username=${user.username}">
+                                            <i class="fa fa-trash-o"></i>Delete
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </c:if>
                 </td>
 
