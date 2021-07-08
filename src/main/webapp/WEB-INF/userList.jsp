@@ -29,6 +29,20 @@
         </div>
     </nav>
     <h3 class="my-4" style="color:yellowgreen"> Welcome, ${username}</h3>
+    <c:if test="${not empty message}">
+        <c:choose>
+            <c:when test="${hasError}">
+                <div class="alert alert-danger" role="alert">
+                        ${message}
+                </div>
+            </c:when>
+            <c:otherwise>
+                <div class="alert alert-success" role="alert">
+                        ${message}
+                </div>
+            </c:otherwise>
+        </c:choose>
+    </c:if>
     <p class ="my-2" style="color:lightseagreen"><i class="fa fa-calendar"></i> Currently: ${date1}</p>
     <table class="table table-primary table-striped table-bordered table-hover ">
         <thead>
@@ -49,7 +63,7 @@
                     <button class="btn btn-info btn-sm" type="button"><i class="fa fa-cog fa-spin"></i></button>
 
                     <c:if test="${currentUser.username != user.username}">
-                        <button class="btn btn-danger btn-sm" type="button"><i class="fa fa-trash-o"></i></button>
+                        <a class="btn btn-danger btn-sm" type="button" href="/user/delete?username=${user.username}"><i class="fa fa-trash-o"></i></a>
                     </c:if>
                 </td>
 
