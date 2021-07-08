@@ -117,6 +117,7 @@ public class UserService {
         } catch (SQLException throwables) {
             return false;
         }
+//        throw new UnsupportedOperationException("not yet done");
     }
 
 
@@ -142,16 +143,16 @@ public class UserService {
 
 
     public static void main(String[] args) {
-//        UserService userService = UserService.getInstance();
-//        try {
-//            userService.createUser("admin","123456","Admin");
-//        } catch (UserServiceException e) {
-//            e.printStackTrace();
-//        }
-        UserService userService1 = new UserService();
-        userService1.setDataBaseConnectionService(new DataBaseConnectionService());
-        User users = userService1.findByUsername("strickwar");
-        System.out.println(users);
+        UserService userService = UserService.getInstance();
+        try {
+            userService.createUser("superuser","asdf","SuperAdmin");
+        } catch (UserServiceException e) {
+            e.printStackTrace();
+        }
+//        UserService userService1 = new UserService();
+//        userService1.setDataBaseConnectionService(new DataBaseConnectionService());
+//        User users = userService1.findByUsername("strickwar");
+//        System.out.println(users);
 //        for(User user : users){
 //            System.out.println(user.getUsername());
 //        }

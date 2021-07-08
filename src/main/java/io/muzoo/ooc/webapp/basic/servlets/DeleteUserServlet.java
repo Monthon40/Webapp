@@ -36,11 +36,11 @@ public class DeleteUserServlet extends HttpServlet implements Routable {
                         request.getSession().setAttribute("message", String.format("User %s is successfully deleted.", deletingUser.getUsername()));
                     } else{
                         request.getSession().setAttribute("hasError",true);
-                        request.getSession().setAttribute("message", String.format("Unable to delete User %s", deletingUser.getUsername()));
+                        request.getSession().setAttribute("message", String.format("Unable to delete user %s.", deletingUser.getUsername()));
                     }
                 } catch (Exception e){
                     request.getSession().setAttribute("hasError",true);
-                    request.getSession().setAttribute("message", String.format("Unable to delete User %s", request.getParameter("username")));
+                    request.getSession().setAttribute("message", String.format("Unable to delete user %s.", request.getParameter("username")));
                 }
             }
             response.sendRedirect("/");
