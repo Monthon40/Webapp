@@ -1,5 +1,6 @@
 package io.muzoo.ooc.webapp.basic.servlets;
 
+import io.muzoo.ooc.webapp.basic.model.User;
 import io.muzoo.ooc.webapp.basic.service.SecurityService;
 import io.muzoo.ooc.webapp.basic.service.UserService;
 
@@ -25,13 +26,13 @@ public class UserServlet extends HttpServlet implements Routable {
             boolean authorized = securityService.isAuthorized(request);
             if(authorized){
                 String username = (String) request.getSession().getAttribute("username");
-                request.setAttribute("username",username);
+                UserService userService = UserService.getInstance();
+
+                request.setAttribute("currentUser",userService.findByUsername(username));
+                request.setAttribute("users", userService.findAll());
 
                 Date date = new Date();
                 request.setAttribute("date1", date);
-
-                UserService userService = UserService.getInstance();
-                request.setAttribute("users", userService.findAll());
 
                 RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/userList.jsp");
                 requestDispatcher.include(request,response);
