@@ -1,6 +1,5 @@
 package io.muzoo.ooc.webapp.basic.servlets;
 
-import io.muzoo.ooc.webapp.basic.model.User;
 import io.muzoo.ooc.webapp.basic.service.SecurityService;
 import io.muzoo.ooc.webapp.basic.service.UserService;
 
@@ -11,9 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
-import java.util.Map;
 
-public class UserServlet extends HttpServlet implements Routable {
+public class CreateUserServlet extends HttpServlet implements Routable {
 
 
     private SecurityService securityService;
@@ -29,13 +27,12 @@ public class UserServlet extends HttpServlet implements Routable {
                 UserService userService = UserService.getInstance();
 
 
-                request.setAttribute("currentUser",userService.findByUsername(username));
-                request.setAttribute("users", userService.findAll());
+                request.setAttribute("user",userService.findByUsername(username));
 
                 Date date = new Date();
                 request.setAttribute("date1", date);
 
-                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/userList.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/create.jsp");
                 rd.include(request,response);
 
                 //doesn't look like session attributes were removed
@@ -53,7 +50,7 @@ public class UserServlet extends HttpServlet implements Routable {
 
     @Override
     public String getPattern() {
-        return "/index.jsp";
+        return "/user/create";
     }
 
     @Override
@@ -61,6 +58,3 @@ public class UserServlet extends HttpServlet implements Routable {
         this.securityService = securityService;
     }
 }
-
-
-

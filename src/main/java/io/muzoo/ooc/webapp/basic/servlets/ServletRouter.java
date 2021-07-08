@@ -20,6 +20,7 @@ public class ServletRouter {
         routables.add(LogoutServlet.class);
         routables.add(UserServlet.class);
         routables.add(DeleteUserServlet.class);
+        routables.add(CreateUserServlet.class);
     }
 
     private SecurityService securityService;
@@ -30,9 +31,6 @@ public class ServletRouter {
 
     public void init(Context ctx){
 
-//        UserService userService = new UserService();
-//        SecurityService securityService = new SecurityService();
-//        securityService.setUserService(userService);
 
         for (Class<?extends  Routable> routableClass: routables) {
             try {
