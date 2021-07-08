@@ -28,17 +28,19 @@ public class UserServlet extends HttpServlet implements Routable {
                 String username = (String) request.getSession().getAttribute("username");
                 UserService userService = UserService.getInstance();
 
+
                 request.setAttribute("currentUser",userService.findByUsername(username));
                 request.setAttribute("users", userService.findAll());
 
                 Date date = new Date();
                 request.setAttribute("date1", date);
 
-                RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/userList.jsp");
-                requestDispatcher.include(request,response);
+                RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/userList.jsp");
+                rd.include(request,response);
 
-                request.removeAttribute("hasError");
-                request.removeAttribute("message");
+                //doesn't look like session attributes were removed
+                request.getSession().removeAttribute("hasError");
+                request.getSession().removeAttribute("message");
             }
 
         } else{
