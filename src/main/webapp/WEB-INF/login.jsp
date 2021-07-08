@@ -19,8 +19,8 @@
 </style>
 <body>
 <div class="container ">
-    <div class="row justify-content-md-center h-100 ">
-        <div class="col col-sm-12 col-md-6 col-lg-4 my-auto">
+    <div class="row justify-content-md-center h-75" >
+        <div class="col col-sm-10 col-md-6 col-lg-4 my-auto">
             <head>
                 <h2 class="">Login</h2>
             </head>
