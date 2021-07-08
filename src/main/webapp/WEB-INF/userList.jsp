@@ -10,20 +10,29 @@
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
 </head>
+<style>
+    body{
+
+        background-image: url('https://images.hdqwalls.com/wallpapers/toyota-supra-modified-4k-3r.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+    }
+</style>
 <body>
 <div class="container ">
-    <nav class="navbar navbar-light bg-light">
+    <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">SSC - Login Webapp</a>
             <a class="btn btn-warning btn-sm pull-right" type="button" href="/logout">
                 <i class="fa fa-sign-out" ></i> &nbsp; Logout</a>
         </div>
     </nav>
-    <h3 class="my-4"> Welcome, ${username}</h3>
-    <p class ="my-2" style="color:blue"><i class="fa fa-calendar"></i> Currently: ${date1}</p>
-    <table class="table table-primary table-striped table-bordered table-hover">
+    <h3 class="my-4" style="color:yellowgreen"> Welcome, ${username}</h3>
+    <p class ="my-2" style="color:lightseagreen"><i class="fa fa-calendar"></i> Currently: ${date1}</p>
+    <table class="table table-primary table-striped table-bordered table-hover ">
         <thead>
-        <tr class="table-secondary">
+        <tr class="table-secondary" >
             <th class="py-3">Id</th>
             <th class="py-3">Username</th>
             <th class="py-3">Display Name</th>
