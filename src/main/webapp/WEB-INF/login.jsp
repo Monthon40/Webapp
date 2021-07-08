@@ -12,6 +12,7 @@
 <style>
     body{
         background-image: url('https://images7.alphacoders.com/447/thumb-1920-447698.jpg');
+        /*background-image: url('https://images.hdqwalls.com/wallpapers/toyota-supra-nfs-4k-nm.jpg');*/
         background-repeat: no-repeat;
         background-size: cover;
         background-attachment: fixed
