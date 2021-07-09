@@ -26,6 +26,9 @@ public class CreateUserServlet extends HttpServlet implements Routable {
             boolean authorized = securityService.isAuthorized(request);
             if(authorized){
 
+//                String username = (String) request.getSession().getAttribute("username");
+//                request.setAttribute("username",username);
+
                 Date date = new Date();
                 request.setAttribute("date1", date);
 
