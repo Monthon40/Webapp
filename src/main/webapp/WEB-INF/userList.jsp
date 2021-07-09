@@ -79,6 +79,8 @@
                         <td class="py-3">${user.display_name}</td>
                         <td class="align-middle">
                             <a class="btn btn-info btn-sm" type="button" href="/user/edit?username=${user.username}"><i class="fa fa-cog fa-spin"></i></a>
+                            <a class="btn btn-warning btn-sm" type="button" href="/user/password?username=${user.username}"><i class="fa fa-key"></i></a>
+
 
                             <c:if test="${currentUser.username != user.username}">
                                 <!-- User Confirmation before deleting -->

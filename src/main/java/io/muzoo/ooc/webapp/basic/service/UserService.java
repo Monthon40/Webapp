@@ -14,6 +14,8 @@ public class UserService {
     private static final String SELECT_ALL_USERS_SQL = "SELECT * FROM tbl_user;";
     private static final String DELETE_USER_SQL = "DELETE FROM tbl_user WHERE username = ?;";
     private static final String UPDATE_USER_SQL = "UPDATE tbl_user SET display_name = ? WHERE username = ?;";
+    private static final String UPDATE_USER_PASSWORD_SQL = "UPDATE tbl_user SET password = ? WHERE username = ?;";
+
 
 
 
@@ -119,7 +121,7 @@ public class UserService {
         } catch (SQLException throwables) {
             return false;
         }
-//        throw new UnsupportedOperationException("not yet done");
+
     }
 
 
@@ -151,8 +153,21 @@ public class UserService {
      *
      * @param newPassword
      */
-    public void changePassword(String newPassword) {
-        throw new UnsupportedOperationException("not yet implemented");
+    public void changePassword(String username, String newPassword) throws UserServiceException {
+        try (
+                Connection connection = dataBaseConnectionService.getConnection();
+                PreparedStatement ps = connection.prepareStatement(UPDATE_USER_PASSWORD_SQL);) {
+
+            ps.setString(1, BCrypt.hashpw(newPassword, BCrypt.gensalt()));
+
+            ps.setString(2, username);
+
+            ps.executeUpdate();
+            // need to be manually committed to change
+            connection.commit();
+        } catch (SQLException throwables) {
+            throw new UserServiceException(throwables.getMessage());
+        }
     }
 
 
@@ -163,12 +178,6 @@ public class UserService {
         } catch (UserServiceException e) {
             e.printStackTrace();
         }
-//        UserService userService1 = new UserService();
-//        userService1.setDataBaseConnectionService(new DataBaseConnectionService());
-//        User users = userService1.findByUsername("strickwar");
-//        System.out.println(users);
-//        for(User user : users){
-//            System.out.println(user.getUsername());
-//        }
+
     }
 }

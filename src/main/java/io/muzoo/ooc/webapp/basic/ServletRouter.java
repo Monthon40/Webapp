@@ -1,8 +1,8 @@
-package io.muzoo.ooc.webapp.basic.servlets;
+package io.muzoo.ooc.webapp.basic;
 
 
 import io.muzoo.ooc.webapp.basic.service.SecurityService;
-import io.muzoo.ooc.webapp.basic.service.UserService;
+import io.muzoo.ooc.webapp.basic.servlets.*;
 import org.apache.catalina.Context;
 import org.apache.catalina.startup.Tomcat;
 
@@ -22,6 +22,7 @@ public class ServletRouter {
         routables.add(DeleteUserServlet.class);
         routables.add(CreateUserServlet.class);
         routables.add(EditUserServlet.class);
+        routables.add(ChangePasswordServlet.class);
     }
 
     private SecurityService securityService;

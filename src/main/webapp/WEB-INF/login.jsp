@@ -26,9 +26,10 @@
                 <h2 class="">Login</h2>
             </head>
 
-            <p>
+            <p style="color:red; font-size:19px">
                 ${error}
             </p>
+
             <form action="/login" method="post" >
                 <div class="input-group mb-4 input-group-md">
                     <span class="input-group-text " id="username" style="width: 40px">

@@ -1,4 +1,4 @@
-package io.muzoo.ooc.webapp.basic.servlets;
+package io.muzoo.ooc.webapp.basic;
 
 import io.muzoo.ooc.webapp.basic.service.SecurityService;
 

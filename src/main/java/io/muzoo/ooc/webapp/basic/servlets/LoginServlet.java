@@ -1,5 +1,6 @@
 package io.muzoo.ooc.webapp.basic.servlets;
 
+import io.muzoo.ooc.webapp.basic.Routable;
 import io.muzoo.ooc.webapp.basic.service.SecurityService;
 import org.apache.commons.lang.StringUtils;
 
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-public class LoginServlet extends HttpServlet implements Routable{
+public class LoginServlet extends HttpServlet implements Routable {
 
     private SecurityService securityService;
 

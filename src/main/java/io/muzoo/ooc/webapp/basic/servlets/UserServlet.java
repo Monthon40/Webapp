@@ -1,6 +1,6 @@
 package io.muzoo.ooc.webapp.basic.servlets;
 
-import io.muzoo.ooc.webapp.basic.model.User;
+import io.muzoo.ooc.webapp.basic.Routable;
 import io.muzoo.ooc.webapp.basic.service.SecurityService;
 import io.muzoo.ooc.webapp.basic.service.UserService;
 
@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
-import java.util.Map;
 
 public class UserServlet extends HttpServlet implements Routable {
 

@@ -1,5 +1,6 @@
 package io.muzoo.ooc.webapp.basic.servlets;
 
+import io.muzoo.ooc.webapp.basic.Routable;
 import io.muzoo.ooc.webapp.basic.service.SecurityService;
 import io.muzoo.ooc.webapp.basic.service.UserService;
 import org.apache.commons.lang.StringUtils;
@@ -24,10 +25,6 @@ public class CreateUserServlet extends HttpServlet implements Routable {
         if(securityService.isAuthorized(request)){
             boolean authorized = securityService.isAuthorized(request);
             if(authorized){
-//                String username = (String) request.getSession().getAttribute("username");
-//                UserService userService = UserService.getInstance();
-
-//                request.setAttribute("user",userService.findByUsername(username));
 
                 Date date = new Date();
                 request.setAttribute("date1", date);
@@ -79,11 +76,14 @@ public class CreateUserServlet extends HttpServlet implements Routable {
                     errorMessage ="DisplayName cannot be blank";
                 }
 
+                //check if password is blank
+                else if(StringUtils.isBlank(password)){
+                    errorMessage ="Password cannot be blank";
+                }
+
                 //check if confirm password is same as password
                 else if(!StringUtils.equals(password,cpassword)){
                     errorMessage ="Password does not match";
-//                    errorMessage = String.format("Username %s has already been taken", username);
-
                 }
 
                 if (errorMessage != null){

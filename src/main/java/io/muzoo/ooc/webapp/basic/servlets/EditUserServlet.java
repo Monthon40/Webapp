@@ -1,5 +1,6 @@
 package io.muzoo.ooc.webapp.basic.servlets;
 
+import io.muzoo.ooc.webapp.basic.Routable;
 import io.muzoo.ooc.webapp.basic.model.User;
 import io.muzoo.ooc.webapp.basic.service.SecurityService;
 import io.muzoo.ooc.webapp.basic.service.UserService;
