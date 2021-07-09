@@ -78,7 +78,8 @@
                         <td class="py-3">${user.username}</td>
                         <td class="py-3">${user.display_name}</td>
                         <td class="align-middle">
-                            <button class="btn btn-info btn-sm" type="button"><i class="fa fa-cog fa-spin"></i></button>
+                            <a class="btn btn-info btn-sm" type="button" href="/user/edit?username=${user.username}"><i class="fa fa-cog fa-spin"></i></a>
+
                             <c:if test="${currentUser.username != user.username}">
                                 <!-- User Confirmation before deleting -->
                                 <!-- Button trigger modal -->
